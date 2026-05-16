@@ -1,0 +1,23 @@
+# Example Overlay Structure
+
+base/
+├── deployment.yaml
+├── service.yaml
+└── kustomization.yaml
+
+overlays/
+├── staging/
+│   ├── kustomization.yaml
+│   └── replica-patch.yaml
+│
+└── production/
+    ├── kustomization.yaml
+    └── hpa-patch.yaml
+
+---
+# Demonstrates:
+# - declarative environment management
+# - reusable platform configuration
+# - overlay-driven customization
+# - operational consistency
+# - scalable environment coordination

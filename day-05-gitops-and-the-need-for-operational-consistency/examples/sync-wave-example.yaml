@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+  annotations:
+    argocd.argoproj.io/sync-wave: "10"
+spec:
+  replicas: 2
+
+  selector:
+    matchLabels:
+      app: backend
+
+  template:
+    metadata:
+      labels:
+        app: backend
+
+    spec:
+      containers:
+        - name: backend
+          image: backend:v1
+---
+# Example Sync Wave
+
+# Demonstrates:
+# - dependency-aware reconciliation
+# - operational sequencing
+# - deployment coordination
+# - convergence ordering
+# - dependency-safe rollout behavior

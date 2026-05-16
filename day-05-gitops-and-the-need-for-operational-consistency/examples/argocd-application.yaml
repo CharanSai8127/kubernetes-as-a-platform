@@ -1,0 +1,33 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: backend-production
+  namespace: argocd
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/example/platform-repository.git
+    targetRevision: main
+    path: applications/backend/overlays/production
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: backend-production
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+
+    syncOptions:
+      - CreateNamespace=true
+---
+# Example Argo CD Application
+
+# Demonstrates:
+# - declarative application reconciliation
+# - pull-based synchronization
+# - automated convergence
+# - self-healing behavior
+# - centralized operational management

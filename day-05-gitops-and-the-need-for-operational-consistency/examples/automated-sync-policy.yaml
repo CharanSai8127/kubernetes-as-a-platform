@@ -1,0 +1,34 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: platform-observability
+  namespace: argocd
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/example/platform-repository.git
+    targetRevision: main
+    path: observability
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: monitoring
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+
+    retry:
+      limit: 5
+
+---
+# Example Automated Sync Policy
+
+# Demonstrates:
+# - continuous reconciliation
+# - automated drift correction
+# - self-healing convergence
+# - operational consistency
+# - centralized reconciliation management

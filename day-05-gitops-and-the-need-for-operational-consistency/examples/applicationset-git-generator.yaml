@@ -1,0 +1,42 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: platform-environments
+  namespace: argocd
+spec:
+  generators:
+    - git:
+        repoURL: https://github.com/example/platform-repository.git
+        revision: main
+        directories:
+          - path: environments/*
+
+  template:
+    metadata:
+      name: '{{path.basename}}'
+
+    spec:
+      project: default
+
+      source:
+        repoURL: https://github.com/example/platform-repository.git
+        targetRevision: main
+        path: '{{path}}'
+
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: '{{path.basename}}'
+
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+---
+# Example ApplicationSet using git-dir generator
+
+# Demonstrates:
+# - dynamic environment discovery
+# - scalable reconciliation
+# - overlay iteration
+# - declarative environment generation
+# - centralized operational consistency
