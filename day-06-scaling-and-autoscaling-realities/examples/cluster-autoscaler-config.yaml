@@ -1,0 +1,9 @@
+apiVersion: autoscaling/v1
+kind: ConfigMap
+metadata:
+  name: cluster-autoscaler-status
+  namespace: kube-system
+data:
+  scale-down-enabled: "true"
+  balance-similar-node-groups: "true"
+  skip-nodes-with-system-pods: "false"
